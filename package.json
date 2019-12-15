@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-360/scripts/packager.js",
-    "build": "node node_modules/react-360/scripts/bundle.js",
+    "bundle": "node node_modules/react-360/scripts/bundle.js",
+    "copy-assets": "rm -R ./build/static_assets/ && cp -a ./static_assets/ ./build/static_assets/",
+    "build": "yarn bundle && yarn copy-assets",
     "open": "node -e \"require('xopen')('http://localhost:8081/index.html')\"",
     "devtools": "react-devtools",
     "test": "jest",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "release": "yarn build && yarn deploy"
   },
   "dependencies": {
     "react": "16.3.2",
