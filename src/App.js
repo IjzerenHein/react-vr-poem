@@ -8,7 +8,6 @@ export class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log("didMount");
     const { scrollOffset } = this.state;
     Animated.timing(scrollOffset, {
       toValue: 100,
@@ -42,14 +41,14 @@ const styles = StyleSheet.create({
     // Fill the entire surface
     width: 1000,
     height: 600,
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    //backgroundColor: "rgba(255, 255, 255, 0.8)",
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden"
   },
   greetingBox: {
     padding: 20,
-    backgroundColor: "#000000",
+    //backgroundColor: "#000000",
     borderColor: "#639dda",
     borderWidth: 2,
     overflow: "hidden"
