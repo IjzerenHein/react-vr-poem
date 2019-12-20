@@ -1,4 +1,4 @@
-export default poem = `Autumn is always too early.
+export const test = `Autumn is always too early.
 The peonies are still blooming, bees   
 are still working out ideal states,
 and the cold bayonets of autumn   
@@ -7,4 +7,7 @@ rages.
 
 What is its origin? Why should it destroy   
 dreams, arbors, memories?
-The alien enters the hushed...`;
+The alien enters the hushed...
+
+
+`;

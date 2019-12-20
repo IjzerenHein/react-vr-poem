@@ -1,59 +1,133 @@
 import React from "react";
-import { StyleSheet, Text, View, Animated } from "react-360";
-import poem from "./poem";
+import { StyleSheet, Text, View, Animated, VrButton } from "react-360";
+import * as poems from "./poems";
+
+// TODO - make dynamic
+function getPoem() {
+  return poems.ieke || poems.test;
+}
 
 export class App extends React.Component {
   state = {
-    scrollOffset: new Animated.Value(0)
+    poem: getPoem(),
+    animValue: new Animated.Value(0),
+    finished: true
   };
 
-  componentDidMount() {
-    const { scrollOffset } = this.state;
-    Animated.timing(scrollOffset, {
-      toValue: 100,
-      duration: 2000
-    }).start();
+  startAnim() {
+    const { animValue } = this.state;
+    animValue.setValue(0);
+    Animated.timing(animValue, {
+      toValue: 1,
+      duration: 60000
+    }).start(() => {
+      this.setState({
+        finished: true
+      });
+    });
   }
 
+  componentDidMount() {
+    if (!this.state.finished) {
+      this.startAnim();
+    }
+  }
+
+  onClickStart = () => {
+    this.setState({
+      finished: false
+    });
+    this.startAnim();
+  };
+
   render() {
-    const { scrollOffset } = this.state;
-    return (
-      <View style={styles.panel}>
-        <View style={styles.greetingBox}>
-          <Animated.Text
-            style={[
-              styles.greeting,
-              {
-                transform: [{ translateY: scrollOffset }]
-              }
-            ]}
-          >
-            {poem}
-          </Animated.Text>
-        </View>
+    const { animValue, poem, finished } = this.state;
+    return finished ? (
+      <View style={styles.buttonContainer}>
+        <VrButton style={styles.button} onClick={this.onClickStart}>
+          <Text style={styles.buttonText}>START</Text>
+        </VrButton>
       </View>
+    ) : (
+      <Animated.View
+        style={[
+          styles.panel,
+          {
+            opacity: animValue.interpolate({
+              inputRange: [0, 0.005, 0.995, 1],
+              outputRange: [0, 1, 1, 0]
+            }),
+            transform: [
+              /*{
+                translateZ: animValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-200, 0]
+                })
+              },*/
+              {
+                rotateZ: animValue.interpolate({
+                  inputRange: [0, 0.25, 0.75, 1],
+                  outputRange: [0, 30, -30, 0]
+                })
+              }
+            ]
+          }
+        ]}
+      >
+        <Animated.View
+          style={[
+            styles.paper,
+            {
+              transform: [
+                {
+                  translateY: animValue.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1250]
+                  })
+                }
+              ]
+            }
+          ]}
+        >
+          <Text style={styles.text}>{poem}</Text>
+        </Animated.View>
+      </Animated.View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   panel: {
-    // Fill the entire surface
     width: 1000,
     height: 600,
-    //backgroundColor: "rgba(255, 255, 255, 0.8)",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden"
+    alignItems: "center"
   },
-  greetingBox: {
-    padding: 20,
-    //backgroundColor: "#000000",
-    borderColor: "#639dda",
-    borderWidth: 2,
-    overflow: "hidden"
+  paper: {
+    backgroundColor: "white",
+    padding: 40
   },
-  greeting: {
+  text: {
+    color: "black",
+    //fontFamily: "Lobster",
     fontSize: 30
+  },
+  buttonContainer: {
+    width: 1000,
+    height: 600,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  button: {
+    width: 200,
+    height: 100,
+    borderRadius: 20,
+    backgroundColor: "royalblue",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 50
   }
 });
