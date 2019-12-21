@@ -1,5 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, Animated, VrButton } from "react-360";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  VrButton,
+  NativeModules,
+  asset
+} from "react-360";
+const { AudioModule } = NativeModules;
 import * as poems from "./poems";
 
 // TODO - make dynamic
@@ -28,6 +37,15 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
+    // Set background audio
+    AudioModule.playEnvironmental({
+      source: asset("xmas_audio.m4a"),
+      //volume: 0.3, // play at 3/10 original volume
+      volume: 0.5,
+      loop: true
+    });
+
+    // Start if neccessary
     if (!this.state.finished) {
       this.startAnim();
     }
