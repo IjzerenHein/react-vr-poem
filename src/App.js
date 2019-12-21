@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Environment,
   StyleSheet,
   Text,
   View,
@@ -23,6 +24,10 @@ export class App extends React.Component {
     finished: true
   };
 
+  startVideo() {
+    Environment.setBackgroundVideo("myplayer");
+  }
+
   startAnim() {
     const { animValue } = this.state;
     animValue.setValue(0);
@@ -36,15 +41,17 @@ export class App extends React.Component {
     });
   }
 
-  componentDidMount() {
+  startAudio() {
     // Set background audio
     AudioModule.playEnvironmental({
       source: asset("xmas_audio.m4a"),
       //volume: 0.3, // play at 3/10 original volume
-      volume: 0.5,
-      loop: true
+      volume: 0.5
+      //loop: true
     });
+  }
 
+  componentDidMount() {
     // Start if neccessary
     if (!this.state.finished) {
       this.startAnim();
@@ -55,7 +62,10 @@ export class App extends React.Component {
     this.setState({
       finished: false
     });
-    this.startAnim();
+    this.startAudio();
+    this.startVideo();
+
+    setTimeout(() => this.startAnim(), 10000);
   };
 
   render() {

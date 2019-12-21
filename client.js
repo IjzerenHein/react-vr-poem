@@ -24,7 +24,7 @@ function init(bundle, parent, options = {}) {
   // Set background video
   const player = r360.compositor.createVideoPlayer("myplayer");
   player.setSource(r360.getAssetURL("xmas_360.mov"), "2D", "mp4");
-  r360.compositor.setBackgroundVideo("myplayer");
+  //r360.compositor.setBackgroundVideo("myplayer");
 
   // Loop video
   player.setLoop(true);
