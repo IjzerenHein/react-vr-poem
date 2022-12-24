@@ -7,7 +7,7 @@ import {
   Animated,
   VrButton,
   NativeModules,
-  asset
+  asset,
 } from "react-360";
 const { AudioModule } = NativeModules;
 import * as poems from "./poems";
@@ -21,7 +21,7 @@ export class App extends React.Component {
   state = {
     poem: getPoem(),
     animValue: new Animated.Value(0),
-    finished: true
+    finished: true,
   };
 
   startVideo() {
@@ -33,10 +33,10 @@ export class App extends React.Component {
     animValue.setValue(0);
     Animated.timing(animValue, {
       toValue: 1,
-      duration: 60000
+      duration: 60000,
     }).start(() => {
       this.setState({
-        finished: true
+        finished: true,
       });
     });
   }
@@ -46,7 +46,7 @@ export class App extends React.Component {
     AudioModule.playEnvironmental({
       source: asset("xmas_audio.m4a"),
       //volume: 0.3, // play at 3/10 original volume
-      volume: 0.5
+      volume: 0.5,
       //loop: true
     });
   }
@@ -60,7 +60,7 @@ export class App extends React.Component {
 
   onClickStart = () => {
     this.setState({
-      finished: false
+      finished: false,
     });
     this.startAudio();
     this.startVideo();
@@ -83,7 +83,7 @@ export class App extends React.Component {
           {
             opacity: animValue.interpolate({
               inputRange: [0, 0.005, 0.995, 1],
-              outputRange: [0, 1, 1, 0]
+              outputRange: [0, 1, 1, 0],
             }),
             transform: [
               /*{
@@ -95,11 +95,11 @@ export class App extends React.Component {
               {
                 rotateZ: animValue.interpolate({
                   inputRange: [0, 0.25, 0.75, 1],
-                  outputRange: [0, 30, -30, 0]
-                })
-              }
-            ]
-          }
+                  outputRange: [0, 30, -30, 0],
+                }),
+              },
+            ],
+          },
         ]}
       >
         <Animated.View
@@ -110,11 +110,11 @@ export class App extends React.Component {
                 {
                   translateY: animValue.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0, 1250]
-                  })
-                }
-              ]
-            }
+                    outputRange: [0, 1250],
+                  }),
+                },
+              ],
+            },
           ]}
         >
           <Text style={styles.text}>{poem}</Text>
@@ -128,22 +128,22 @@ const styles = StyleSheet.create({
   panel: {
     width: 1000,
     height: 600,
-    alignItems: "center"
+    alignItems: "center",
   },
   paper: {
     backgroundColor: "white",
-    padding: 40
+    padding: 40,
   },
   text: {
     color: "black",
     //fontFamily: "Lobster",
-    fontSize: 30
+    fontSize: 30,
   },
   buttonContainer: {
     width: 1000,
     height: 600,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   button: {
     width: 200,
@@ -151,11 +151,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "royalblue",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 50
-  }
+    fontSize: 50,
+  },
 });
