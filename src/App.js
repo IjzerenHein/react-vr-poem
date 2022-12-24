@@ -85,20 +85,14 @@ export class App extends React.Component {
               inputRange: [0, 0.005, 0.995, 1],
               outputRange: [0, 1, 1, 0],
             }),
-            transform: [
-              /*{
-                translateZ: animValue.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [-200, 0]
-                })
-              },*/
+            /* transform: [
               {
                 rotateZ: animValue.interpolate({
                   inputRange: [0, 0.25, 0.75, 1],
                   outputRange: [0, 30, -30, 0],
                 }),
               },
-            ],
+            ], */
           },
         ]}
       >
