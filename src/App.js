@@ -14,7 +14,7 @@ import * as poems from "./poems";
 
 // TODO - make dynamic
 function getPoem() {
-  return poems.ieke || poems.test;
+  return poems.lucas || poems.ieke || poems.test;
 }
 
 export class App extends React.Component {
